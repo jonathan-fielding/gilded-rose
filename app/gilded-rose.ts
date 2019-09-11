@@ -77,7 +77,7 @@ export class GildedRose {
    * @param {number} increment - The ammount to increase quality by
    */
   static incrementQuality(quality: number, increment: number = 1) {
-    return quality === 50 ? quality : quality + increment;
+    return quality + increment >= 50 ? 50 : quality + increment;
   }
 
   /**
