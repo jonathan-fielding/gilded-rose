@@ -76,4 +76,21 @@ describe('Gilded Rose', function () {
         expect(updateAgain[0].name).to.equal(backstagePass);
         expect(updateAgain[0].quality).to.equal(0);
     });
+
+    //
+    // Test for 'Sulfuras, Hand of Ragnaros'
+    // Every day it gets older Quality increases by 2
+    // 
+    it('should Sulfuras, Hand of Ragnaros always be quality 80', function() {
+        const sulfurasItem = new Item(sulfuras, 1, 80);
+        const gildedRose = new GildedRose([ sulfurasItem ]);
+        
+        const items = gildedRose.updateQuality();
+        expect(items[0].name).to.equal(sulfuras);
+        expect(items[0].quality).to.equal(80);
+
+        const items2 = gildedRose.updateQuality();
+        expect(items2[0].name).to.equal(sulfuras);
+        expect(items2[0].quality).to.equal(80);
+    });
 });
