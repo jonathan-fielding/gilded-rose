@@ -17,60 +17,46 @@ export class GildedRose {
     this.items = items;
   }
 
-  static updateQualityBackstagePass(item) {
-    item.quality = item.quality + 1;
-
-    if (item.sellIn < 10) {
-      item.quality = GildedRose.incrementQuality(item.quality);
-    }
-
-    if (item.sellIn < 5) {
-      item.quality = GildedRose.incrementQuality(item.quality);
-    }
-
+  static updateQualityBackstagePass(item: Item) {
     if (item.sellIn < 0) {
       item.quality = 0;
+      return item; // Return as early as possible
     }
-    
+
+    let qualityIncrement = 1;
+    if (item.sellIn < 10) qualityIncrement++;
+    if (item.sellIn < 5) qualityIncrement++;
+
+    item.quality = GildedRose.incrementQuality(item.quality, qualityIncrement);
     return item;
   }
 
-  static updateQualityAgedBrie(item) {
-    if (item.quality < 50) {
-      item.quality = GildedRose.incrementQuality(item.quality);
-    }
-
-    if (item.sellIn < 0) {
-      item.quality = GildedRose.incrementQuality(item.quality);
-    }
-
+  static updateQualityAgedBrie(item: Item) {
+    const qualityIncrement = item.sellIn < 0 ? 2 : 1;
+    item.quality = GildedRose.incrementQuality(item.quality, qualityIncrement);
     return item;
   }
 
-  static updateQualityDefaultItem(item) {
-    item.quality = GildedRose.decrementQuality(item.quality);
-    
-    if (item.sellIn < 0) {
-      item.quality = GildedRose.decrementQuality(item.quality, 1);
-    }
-
+  static updateQualityDefaultItem(item: Item) {
+    const qualityDecrement = item.sellIn < 0 ? 2 : 1;
+    item.quality = GildedRose.decrementQuality(item.quality, qualityDecrement);
     return item;
   }
 
-  static updateQualityConjuredItem(item) {
+  static updateQualityConjuredItem(item: Item) {
     const qualityDecrement = item.sellIn < 0 ? 4 : 2;
     item.quality = GildedRose.decrementQuality(item.quality, qualityDecrement);
     return item;
   }
 
-  static incrementQuality(quality, increment = 1) {
+  static incrementQuality(quality: number, increment: number = 1) {
     return quality === 50 ? quality : quality + increment;
   }
 
-  static decrementQuality(quality, decrement = 1) {
+  static decrementQuality(quality: number, decrement: number = 1) {
     return quality - decrement <= 0 ? 0 : quality - decrement;
   }
-  
+
   updateQuality() {
     this.items = this.items.map((item: Item) => {
       if (item.name != 'Sulfuras, Hand of Ragnaros') {
@@ -85,7 +71,7 @@ export class GildedRose {
         case 'Aged Brie':
           return GildedRose.updateQualityAgedBrie(item);
         case 'Conjured Mana Cake':
-            return GildedRose.updateQualityConjuredItem(item); 
+          return GildedRose.updateQualityConjuredItem(item);
         default:
           return GildedRose.updateQualityDefaultItem(item);
       }
