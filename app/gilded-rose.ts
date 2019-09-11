@@ -76,7 +76,7 @@ export class GildedRose {
    * @param {number} quality - The current quality value
    * @param {number} increment - The ammount to increase quality by
    */
-  static incrementQuality(quality: number, increment: number = 1) {
+  static incrementQuality(quality: number, increment: number) {
     return quality + increment >= 50 ? 50 : quality + increment;
   }
 
@@ -87,7 +87,7 @@ export class GildedRose {
    * @param {number} quality - The current quality value
    * @param {number} decrement - The ammount to decrease quality by
    */
-  static decrementQuality(quality: number, decrement: number = 1) {
+  static decrementQuality(quality: number, decrement: number) {
     return quality - decrement <= 0 ? 0 : quality - decrement;
   }
 
