@@ -162,4 +162,36 @@ describe('Gilded Rose', function() {
       days--;
     }
   });
+
+  // Test for incrementQuality
+  // quality should be incremented until it reaches a cap of 50
+  it('should incrementQuality', function() {
+    const increment0by1 = GildedRose.incrementQuality(0, 1);
+    expect(increment0by1).to.equal(1);
+
+    const increment1by2 = GildedRose.incrementQuality(1, 2);
+    expect(increment1by2).to.equal(3);
+    
+    const increment49by2 = GildedRose.incrementQuality(49, 2);
+    expect(increment49by2).to.equal(50);
+
+    const increment50by1 = GildedRose.incrementQuality(50, 1);
+    expect(increment50by1).to.equal(50);
+  });
+
+  // Test for decrementQuality
+  // quality should be incremented until it reaches a cap of 50
+  it('should decrementQuality', function() {
+    const decrement0by1 = GildedRose.decrementQuality(0, 1);
+    expect(decrement0by1).to.equal(0);
+
+    const decrement1by2 = GildedRose.decrementQuality(1, 2);
+    expect(decrement1by2).to.equal(0);
+    
+    const decrement49by2 = GildedRose.decrementQuality(49, 2);
+    expect(decrement49by2).to.equal(47);
+
+    const decrement50by1 = GildedRose.decrementQuality(50, 1);
+    expect(decrement50by1).to.equal(49);
+  });
 });
