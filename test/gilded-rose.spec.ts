@@ -46,21 +46,32 @@ describe('Gilded Rose', function () {
     // Every day it gets older Quality increases by 2
     // 
     it('should Aged Brie', function() {
-        const agedBrie = new Item('Aged Brie', 0, 0);
+        const agedBrie = new Item('Aged Brie', 5, 0);
         const gildedRose = new GildedRose([ agedBrie ]);
-        
-        for (let i = 1; i <= 50; i++) {
-            const items = gildedRose.updateQuality();
-            expect(items[0].name).to.equal('Aged Brie');
 
-            if (i < 26) {
-                expect(items[0].quality).to.equal(i * 2);
-                expect(items[0].sellIn).to.equal(i * -1);
-            } else {
-                expect(items[0].quality).to.equal(50);
-                expect(items[0].sellIn).to.equal(i * -1);
-            }
+        let days = 5;
+        let expectedQuality = 0;
+
+        while (days > 0) {
+            const items = gildedRose.updateQuality();
+            expectedQuality++;
+            expect(items[0].quality).to.equal(expectedQuality);
+            days--;
         }
+
+        
+        while (days > -25) {
+            const items = gildedRose.updateQuality();
+            expectedQuality = expectedQuality + 2;
+
+            if (expectedQuality > 50) {
+                expectedQuality = 50;
+            }
+            
+            expect(items[0].quality).to.equal(expectedQuality);
+            days--;
+        }
+
     });
 
     //
