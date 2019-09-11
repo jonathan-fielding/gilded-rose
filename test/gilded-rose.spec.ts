@@ -15,6 +15,32 @@ describe('Gilded Rose', function () {
         expect(items[0].sellIn).to.equal(-1);
     });
 
+    // Test for generic item 'bar'
+    // Quality degrades by 1 per day while sellIn is greater than 0
+    // Once its past its sell by date quality degrades by 2
+    it('should bar', function() {
+        const gildedRose = new GildedRose([ new Item('bar', 5, 15) ]);
+        let days = 5;
+        let expectedQuality = 15;
+
+        while (days > 0) {
+            const items = gildedRose.updateQuality();
+            expectedQuality--;
+            expect(items[0].quality).to.equal(expectedQuality);
+            days--;
+        }
+
+        while (days > -5) {
+            const items = gildedRose.updateQuality();
+            expectedQuality = expectedQuality - 2;
+            expect(items[0].quality).to.equal(expectedQuality);
+            days--;
+        }
+
+        const updateAgain = gildedRose.updateQuality();
+        expect(updateAgain[0].quality).to.equal(0);
+    });
+
     //
     // Test for 'Aged Brie'
     // Every day it gets older Quality increases by 2
