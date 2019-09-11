@@ -5,6 +5,12 @@ const backstagePass = 'Backstage passes to a TAFKAL80ETC concert';
 const sulfuras = 'Sulfuras, Hand of Ragnaros';
 
 describe('Gilded Rose', function () {
+    // Test for no items being added to gilded rose
+    it('should have no items in an empty shop', function() {
+        const gildedRose = new GildedRose();
+        const items = gildedRose.updateQuality();
+        expect(items.length).to.equal(0);
+    });
 
     // Test for generic item 'foo'
     it('should foo', function() {
