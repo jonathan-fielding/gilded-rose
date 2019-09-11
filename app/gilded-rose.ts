@@ -47,7 +47,7 @@ export class GildedRose {
     return item;
   }
 
-  static updateQualityDefault(item) {
+  static updateQualityDefaultItem(item) {
     item.quality = GildedRose.decrementQuality(item.quality);
     
     if (item.sellIn < 0) {
@@ -57,12 +57,18 @@ export class GildedRose {
     return item;
   }
 
+  static updateQualityConjuredItem(item) {
+    const qualityDecrement = item.sellIn < 0 ? 4 : 2;
+    item.quality = GildedRose.decrementQuality(item.quality, qualityDecrement);
+    return item;
+  }
+
   static incrementQuality(quality, increment = 1) {
     return quality === 50 ? quality : quality + increment;
   }
 
   static decrementQuality(quality, decrement = 1) {
-    return quality === 0 ? quality : quality - decrement;
+    return quality - decrement <= 0 ? 0 : quality - decrement;
   }
   
   updateQuality() {
@@ -75,11 +81,13 @@ export class GildedRose {
         case 'Sulfuras, Hand of Ragnaros':
           return item;
         case 'Backstage passes to a TAFKAL80ETC concert':
-          return GildedRose.updateQualityBackstagePass(item)
+          return GildedRose.updateQualityBackstagePass(item);
         case 'Aged Brie':
-          return GildedRose.updateQualityAgedBrie(item)
+          return GildedRose.updateQualityAgedBrie(item);
+        case 'Conjured Mana Cake':
+            return GildedRose.updateQualityConjuredItem(item); 
         default:
-          return GildedRose.updateQualityDefault(item);
+          return GildedRose.updateQualityDefaultItem(item);
       }
     });
 

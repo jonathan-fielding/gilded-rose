@@ -119,4 +119,32 @@ describe('Gilded Rose', function () {
         expect(items2[0].name).to.equal(sulfuras);
         expect(items2[0].quality).to.equal(80);
     });
+
+    // Test for 'Conjured Mana Cake'
+    // Quality degrades by 2 per day while sellIn is greater than 0
+    // Once its past its sell by date quality degrades by 4
+    it('should Conjured Mana Cake', function() {
+        const gildedRose = new GildedRose([ new Item('Conjured Mana Cake', 5, 16) ]);
+        let days = 5;
+        let expectedQuality = 16;
+
+        while (days > 0) {
+            const items = gildedRose.updateQuality();
+            expectedQuality = expectedQuality - 2;
+            expect(items[0].quality).to.equal(expectedQuality);
+            days--;
+        }
+
+        while (days > -5) {
+            const items = gildedRose.updateQuality();
+            expectedQuality = expectedQuality - 4;
+
+            if (expectedQuality < 0) {
+                expectedQuality = 0;
+            }
+
+            expect(items[0].quality).to.equal(expectedQuality);
+            days--;
+        }
+    });
 });
