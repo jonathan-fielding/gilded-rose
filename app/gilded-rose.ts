@@ -28,7 +28,7 @@ export class GildedRose {
       return item; // Return as early as possible
     }
 
-    let qualityIncrement = 1;
+    let qualityIncrement: number = 1;
     if (item.sellIn < 10) qualityIncrement++;
     if (item.sellIn < 5) qualityIncrement++;
 
@@ -42,7 +42,7 @@ export class GildedRose {
    * @param {object} item - The product item that needs the quality updated
    */
   static updateQualityAgedBrie(item: Item) {
-    const qualityIncrement = item.sellIn < 0 ? 2 : 1;
+    const qualityIncrement: number = item.sellIn < 0 ? 2 : 1;
     item.quality = GildedRose.incrementQuality(item.quality, qualityIncrement);
     return item;
   }
@@ -53,7 +53,7 @@ export class GildedRose {
    * @param {object} item - The product item that needs the quality updated
    */
   static updateQualityDefaultItem(item: Item) {
-    const qualityDecrement = item.sellIn < 0 ? 2 : 1;
+    const qualityDecrement: number = item.sellIn < 0 ? 2 : 1;
     item.quality = GildedRose.decrementQuality(item.quality, qualityDecrement);
     return item;
   }
@@ -64,7 +64,7 @@ export class GildedRose {
    * @param {object} item - The product item that needs the quality updated
    */
   static updateQualityConjuredItem(item: Item) {
-    const qualityDecrement = item.sellIn < 0 ? 4 : 2;
+    const qualityDecrement: number = item.sellIn < 0 ? 4 : 2;
     item.quality = GildedRose.decrementQuality(item.quality, qualityDecrement);
     return item;
   }
