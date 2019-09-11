@@ -7,7 +7,7 @@
     "compile": "tsc",
     "pretest": "rimraf app/**/*.js test/**/*.js",
     "test": "nyc mocha",
-    "format": "prettier --single-quote --write app/**/*.ts"
+    "format": "prettier --single-quote --write **/*.ts"
   },
   "license": "MIT",
   "private": true,
